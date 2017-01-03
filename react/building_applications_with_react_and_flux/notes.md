@@ -33,3 +33,18 @@ I was going through the [Building Applications with React and Redux in ES6](http
 * JSX compiles to JS -- JSX is optional, but highly, highly encouraged
 * JSX: "Fail fast, Fail loudly"
 * Isomorphic and React Native are large concepts that have their own courses
+* Can use a `.js` or `.jsx` extension. There are pros/cons to both. Consistency is #1
+* Props
+	* Immutable
+	* Look like HTML attributes
+* State
+	* Mutable
+	* Strive to only use them on your controller views (aka Smart Components aka top-level view)
+	* Pass down State attributes to the child props
+* `componentDidMount` lifecycle hook is great when interacting with 3rd party tools -- it means that it is now a part of the DOM
+* When adding dynamic children, such as a loop of users in a users#index, need to use a `<div key={user.id}>` key attribute so React can keep track (note: doesn't need to be `.id` but it needs to be some sort of unique id)
+* Composition
+	* The Controller View owns the child views -- like an avatar component owns the profile pic and the profile info
+	* The Controller View interacts with the stores
+* PropType validation
+	* Does not run in production (with minified React)
