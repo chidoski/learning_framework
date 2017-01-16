@@ -85,6 +85,7 @@ Research the answers to these questions. Run it by someone you know or members o
 	* Aim to minimize documentation lookup
 	* Read the test suite
 * How: What are the best practices and how are they used?
+* How: What are the known anti-patterns?
 * When: When were new features added and deprecations introduced?
 * When: What does the roadmap look like and when will they be added?
 

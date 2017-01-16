@@ -1,43 +1,36 @@
 "use strict";
 
 var React = require('react');
-var AuthorApi = require('../../api/authorApi');
+var AuthorStore = require('../../stores/authorStore');
 var AuthorList = require('./authorList');
+
+var Link = require('react-router').Link;
 
 var AuthorPage = React.createClass({
   getInitialState: function() {
     return {
-      authors: []
+      authors: AuthorStore.getAllAuthors()
     };
   },
 
-  componentDidMount: function() {
-    // The tutorial said this is a best practice to check
-    // not sure why... seems obvious?
-    if (this.isMounted()) {
-      this.setState({ authors: AuthorApi.getAllAuthors() })
-    }
+  componentWillMount: function() {
+    AuthorStore.addChangeListener(this._onChange);
   },
 
+  // Cleanup when component unmounted
+  componentWillUnmount: function() {
+    AuthorStore.removeChangeListener(this._onChange);
+  },
+
+  _onChange: function() {
+    this.setState({ authors: AuthorStore.getAllAuthors() });
+  },
 
   render: function() {
-    var createAuthorRow = function (author) {
-      return (
-        <tr key={author.id}>
-          <td>
-            <a href={"/#authors/" + author.id}>{author.id}</a>
-          </td>
-          <td>
-            {author.firstName} {author.lastName}
-          </td>
-        </tr>
-      );
-    }
-
-
     return (
       <div>
         <h1>Authors</h1>
+        <Link to="addAuthor" className="btn btn-default">Add Author</Link>
         <AuthorList authors={this.state.authors} />
       </div>
     );

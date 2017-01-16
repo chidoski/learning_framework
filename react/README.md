@@ -115,7 +115,7 @@
 * Use: when the data will change many times
 * Use: when one interaction will affect many other components
 * Use: with a high chance of it becoming a large app
-* Use: when a small learning curve is required
+* Use: the team is strong in pure JS
 * Use: do not want to use TypeScript
 
 * Not: if you believe that Web Components are the future

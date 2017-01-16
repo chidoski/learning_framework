@@ -48,3 +48,45 @@ I was going through the [Building Applications with React and Redux in ES6](http
 	* The Controller View interacts with the stores
 * PropType validation
 	* Does not run in production (with minified React)
+* For React Router, if you don't provide a `path` attribute, it'll assume the `name` is the same as the `path`
+* `this.props.params` and `this.props.query`
+* Hash vs History URLs
+	* History (aka HTML5 push state style) is cleaner and doesn't have the `#` in the URL
+	* Hash location works on all browsers, History requires IE10+
+	* History is required to do server-side rendering
+	* Hash is the default from React-Router
+* When doing a form, the high-level component should be a Controller-View aka a Smart Component
+* If you're inputting HTML into the base page, it's a sign that you're not doing Smart Components
+* When working with forms, React requires you to create a custom handler -- if you run into a scenario where typing into a form doesn't do anything, it's because React is redrawing on the Virtual DOM. You need to set it so that typing changes the attribute so on a re-draw it shows the new text
+* When other people will be using your component, make sure to define `propTypes` so they get a warning if they aren't used corectly plus it'll provide documentation
+* Flux
+	* Pattern, not a framework
+	* Has a centralized dispatcher that dispatches changes to the data
+	* Also the name of Facebook's Flux implementation
+	* Many alternatives to Facebook's flux implementation
+	* Action -> Dispatcher -> Store -> React View
+	* Dispatcher: singleton registry -- or rather a centralized list of callback
+* Example
+	* Action: Delete User
+	* Dispatcher: Notifies every store that cares
+	* Store: Hold app state
+	* React View: Updates when given new data
+* Every action's payload with a type and data
+* Dispatcher: there's only one, dispatches actions, broadcasts payload to all registered callbacks, stores essentially subscribe to events in the Dispatcher
+* Store: Holds app state, logic, data retrieval, not a model but contains models, one or many, uses Node's `EventEmitter`, the only part that knows how to update with new data
+* Every Store...
+	* Extends EventEmitter
+	* `addChangeListener` and `removeChangeListener`
+	* `emitChange`
+* Controller Views should interact with Stores
+* Flux API
+	* `register(fn callback)` -- "Hey Dispatcher, run me when actions happen. --Store"
+	* `unregister(string id)` -- "Hey Dispatcher, stop worrying about this action. --Store"
+	* `waitFor(array<string> ids)` -- "Hey Dispatcher, call these other stores first and in the given order. --Store"
+	* `dispatch(object payload)` -- "Hey Dispatcher, tell the stores about this action. --Action"
+	* `isDispatching()` -- boolean that is `true` when Dispatcher is dispatching things
+* Not the same thing as PubSub
+	* Callbacks are not subscribed to particular events; Every payload is dispatched to every registered callback
+	* Callbacks can be deferred until other callbacks are completed
+	
+	
